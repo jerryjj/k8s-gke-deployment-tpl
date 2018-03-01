@@ -1,0 +1,19 @@
+{
+  "name": "gke-tooling",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tooling for K8s schemas",
+  "author": "Jerry Jalava <jerry@qvik.fi>",
+  "main": "index.js",
+  "engines": {
+    "node": ">=6.x.x"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-google": "^0.9.1"
+  }
+}

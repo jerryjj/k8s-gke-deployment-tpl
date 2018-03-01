@@ -1,0 +1,37 @@
+# Allow incoming HTTP(S) traffic
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-incoming-api-to-payments
+spec:
+  policyTypes:
+  - Ingress
+  podSelector:
+    matchLabels:
+      role: payments
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: team1
+    ports:
+    - port: 50051
+      protocol: TCP
+---
+# Allow traffic from payments to PSP
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-outgoing-to-psp
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      role: payments
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 23.99.0.12/32
+    ports:
+      - port: 80

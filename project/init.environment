@@ -1,0 +1,3 @@
+if [ -f "./project/$ENV.environment" ]; then
+  source ./project/$ENV.environment
+fi

@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api
+  namespace: {NAMESPACE}
+  labels:
+    role: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: api
+  template:
+    metadata:
+      labels:
+        role: api
+    spec:
+      containers:
+        - name: api
+          image: eu.gcr.io/{PROJECT_ID}/api:{VERSION}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: PROJECT_ID
+              value: {PROJECT_ID}
+            - name: PAYMENTS_ADDRESS
+              value: payments.team2.svc.cluster.local:50051

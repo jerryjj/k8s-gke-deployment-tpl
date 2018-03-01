@@ -1,0 +1,16 @@
+# You SHOULD change these
+export ORGANIZATION_ID=
+export BILLING_ID=
+export PROJECT_ID_SUFFIX=k8s-demo
+
+# You SHOULDN'T modify these
+export PROJECT_ID=$ENV-$PROJECT_ID_SUFFIX
+export ALL_ENVS=( "dev" "test" "stg" "prod" )
+
+if [ -f "./$ENV.environment" ]; then
+  source ./$ENV.environment
+fi
+
+source ./project/init.environment
+source ./cluster/init.environment
+source ./secrets/init.environment

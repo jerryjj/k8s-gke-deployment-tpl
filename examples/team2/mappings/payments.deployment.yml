@@ -1,0 +1,67 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: payments
+  namespace: {NAMESPACE}
+  labels:
+    role: payments
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: payments
+  template:
+    metadata:
+      labels:
+        role: payments
+    spec:
+      containers:
+        - name: payments
+          image: eu.gcr.io/{PROJECT_ID}/payments:{VERSION}
+          imagePullPolicy: Always
+          ports:
+            - name: grpc
+              containerPort: 50051
+          env:
+            - name: PROJECT_ID
+              value: {PROJECT_ID}
+      # Enable here if you have a Cloud SQL instance created and secrets deployed
+      #       - name: DB_USER
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: {NAMESPACE}-sql
+      #             key: username
+      #       - name: DB_PASSWORD
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: {NAMESPACE}-sql
+      #             key: password
+      #   - name: cloudsql-proxy
+      #     image: gcr.io/cloudsql-docker/gce-proxy:1.11
+      #     imagePullPolicy: IfNotPresent
+      #     command: [
+      #       "/cloud_sql_proxy",
+      #       "-instances=$(INSTANCE_NAME)=tcp:3306",
+      #       "-credential_file=/etc/secrets/sql-sa.json"
+      #     ]
+      #     env:
+      #       - name: INSTANCE_NAME
+      #         value: {PROJECT_ID}:europe-west1:{NAMESPACE}-sql
+      #       - name: DB_USER
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: {NAMESPACE}-sql
+      #             key: username
+      #       - name: DB_PASSWORD
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: {NAMESPACE}-sql
+      #             key: password
+      #     volumeMounts:
+      #       - name: sqlsecrets
+      #         mountPath: /etc/secrets
+      #         readOnly: true
+      # volumes:
+      #   - name: sqlsecrets
+      #     secret:
+      #       secretName: {NAMESPACE}-sql

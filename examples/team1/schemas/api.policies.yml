@@ -1,0 +1,35 @@
+# Allow incoming HTTP(S) traffic
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-incoming-web-to-api
+spec:
+  policyTypes:
+  - Ingress
+  podSelector:
+    matchLabels:
+      role: api
+  ingress:
+  - from: []
+    ports:
+    - port: 8080
+---
+# Allow traffic from api to team2 payments module through grpc
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-outgoing-to-payments
+spec:
+  policyTypes:
+  - Egress
+  podSelector:
+    matchLabels:
+      role: api
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: team2
+    ports:
+      - port: 50051
+        protocol: TCP

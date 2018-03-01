@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: List
+items:
+  -
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: team1
+      labels:
+        name: team1
+  -
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: team2
+      labels:
+        name: team2

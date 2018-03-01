@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments
+  namespace: team2
+spec:
+  selector:
+    role: payments
+  type: ClusterIP
+  ports:
+  - name: endpoint
+    port: 50051
+    targetPort: grpc

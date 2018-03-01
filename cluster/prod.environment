@@ -1,0 +1,1 @@
+export CLUSTER_MACHINE_TYPE="n1-standard-2"
