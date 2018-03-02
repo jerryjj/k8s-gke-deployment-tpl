@@ -1,5 +1,7 @@
 # Kubernetes - Happily in Production
 
+**!NOTE! This is still under development, I haven't yet pushed all the parts**
+
 This is a repository that one can use as an base to run Kubernetes cluster inside Google Cloud Platform.
 It is a collection of best practises around security and networking that I usually use when deploying
 K8s clusters.
