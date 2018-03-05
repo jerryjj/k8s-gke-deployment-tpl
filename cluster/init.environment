@@ -2,6 +2,7 @@
 export CLUSTER_NAME=demo-cluster
 export CLUSTER_REGION=europe-west1
 export CLUSTER_MACHINE_TYPE="n1-standard-1"
+export CLUSTER_ZONE=$CLUSTER_REGION-c
 
 # You SHOULDN'T modify these
 export CONTEXT=`kubectl config view | awk '{print $2}' | grep $CLUSTER_NAME | tail -n 1`
